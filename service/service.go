@@ -70,7 +70,7 @@ func (s *service) GetBattleItem(c *gin.Context) {
 		return
 	}
 
-	result, err := s.unitedbapi.GetBattleItem(c.Request.Context(), "203.194.113.23:40", req.Name, req.Tier)
+	result, err := s.unitedbapi.GetBattleItem(c.Request.Context(), req.Name, req.Tier)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadGateway, gin.H{
 			"error": err.Error(),

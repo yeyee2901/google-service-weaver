@@ -12,7 +12,7 @@ import (
 // UniteDBService adalah service untuk berkomunikasi dengan API unitedb
 type UniteDBService interface {
 	// GetBattleItem digunakan untuk mengambil battle item
-	GetBattleItem(c context.Context, addr, name, tier string) (*unitepb.GetBattleItemResponse, error)
+	GetBattleItem(c context.Context, name, tier string) (*unitepb.GetBattleItemResponse, error)
 }
 
 type grpcUniteDBService struct {
@@ -41,7 +41,7 @@ func (s *grpcUniteDBService) Init(_ context.Context) error {
 	return nil
 }
 
-func (s *grpcUniteDBService) GetBattleItem(c context.Context, addr, name string, tier string) (*unitepb.GetBattleItemResponse, error) {
+func (s *grpcUniteDBService) GetBattleItem(c context.Context, name string, tier string) (*unitepb.GetBattleItemResponse, error) {
 	client := unitepb.NewUniteDBServiceClient(s.conn)
 	req := &unitepb.GetBattleItemRequest{}
 

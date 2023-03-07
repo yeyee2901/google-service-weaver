@@ -36,7 +36,7 @@ type uniteDBService_local_stub struct {
 	tracer trace.Tracer
 }
 
-func (s uniteDBService_local_stub) GetBattleItem(ctx context.Context, a0 string, a1 string, a2 string) (r0 *unitepb.GetBattleItemResponse, err error) {
+func (s uniteDBService_local_stub) GetBattleItem(ctx context.Context, a0 string, a1 string) (r0 *unitepb.GetBattleItemResponse, err error) {
 	span := trace.SpanFromContext(ctx)
 	if span.SpanContext().IsValid() {
 		// Create a child span for this method.
@@ -50,7 +50,7 @@ func (s uniteDBService_local_stub) GetBattleItem(ctx context.Context, a0 string,
 		}()
 	}
 
-	return s.impl.GetBattleItem(ctx, a0, a1, a2)
+	return s.impl.GetBattleItem(ctx, a0, a1)
 }
 
 // Client stub implementations.
@@ -60,7 +60,7 @@ type uniteDBService_client_stub struct {
 	getBattleItemMetrics *codegen.MethodMetrics
 }
 
-func (s uniteDBService_client_stub) GetBattleItem(ctx context.Context, a0 string, a1 string, a2 string) (r0 *unitepb.GetBattleItemResponse, err error) {
+func (s uniteDBService_client_stub) GetBattleItem(ctx context.Context, a0 string, a1 string) (r0 *unitepb.GetBattleItemResponse, err error) {
 	// Update metrics.
 	start := time.Now()
 	s.getBattleItemMetrics.Count.Add(1)
@@ -92,14 +92,12 @@ func (s uniteDBService_client_stub) GetBattleItem(ctx context.Context, a0 string
 	size := 0
 	size += (4 + len(a0))
 	size += (4 + len(a1))
-	size += (4 + len(a2))
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
 	// Encode arguments.
 	enc.String(a0)
 	enc.String(a1)
-	enc.String(a2)
 	var shardKey uint64
 
 	// Call the remote method.
@@ -149,13 +147,11 @@ func (s uniteDBService_server_stub) getBattleItem(ctx context.Context, args []by
 	a0 = dec.String()
 	var a1 string
 	a1 = dec.String()
-	var a2 string
-	a2 = dec.String()
 
 	// TODO(rgrandl): The deferred function above will recover from panics in the
 	// user code: fix this.
 	// Call the local method.
-	r0, appErr := s.impl.GetBattleItem(ctx, a0, a1, a2)
+	r0, appErr := s.impl.GetBattleItem(ctx, a0, a1)
 
 	// Encode the results.
 	enc := codegen.NewEncoder()
