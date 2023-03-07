@@ -1,0 +1,6 @@
+[serviceweaver]
+name = "unitedb"
+binary = "./unitedb"
+
+["github.com/yeyee2901/service-weaver/service/unitedbapi/UniteDBService"]
+GrpcAddress = "203.194.113.23:40"

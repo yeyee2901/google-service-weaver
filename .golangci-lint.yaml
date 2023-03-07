@@ -1,0 +1,12 @@
+linters:
+  enable:
+    - ineffassign
+    - misspell
+    - nilerr
+    - nilnil
+    - nonamedreturns
+    - unused
+    - whitespace
+    - revive
+  disable:
+    - errcheck
