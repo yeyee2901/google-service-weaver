@@ -37,8 +37,11 @@ func (s *service) RegisterRouting() {
 	s.ginEngine.Handle(http.MethodGet, "/unitedb/battle-item", s.GetBattleItem)
 }
 
+// Run akan menjalankan server di goroutine dan mengembalikan error channel nya
+// ke caller. Error channel dapat di polling untuk mengecek apakah server masih running
 func (s *service) Run(addr string) <-chan error {
 	errChan := make(chan error)
+
 	listener, err := s.weaverRoot.Listener("unitedb", weaver.ListenerOptions{
 		LocalAddress: addr,
 	})
@@ -49,18 +52,22 @@ func (s *service) Run(addr string) <-chan error {
 	}
 
 	server := http.Server{
-		Handler: weaver.InstrumentHandler("unitedbapi", s.ginEngine),
+		Handler: weaver.InstrumentHandler("unitedb", s.ginEngine),
 	}
 
-	if err = server.Serve(listener); err != nil {
-		errChan <- err
-		return errChan
-	}
+	go func() {
+		if err = server.Serve(listener); err != nil {
+			errChan <- err
+			return
+		}
 
-	close(errChan)
+		close(errChan)
+	}()
+
 	return errChan
 }
 
+// GetBattleItem gin handler
 func (s *service) GetBattleItem(c *gin.Context) {
 	var req GetBattleItemRequest
 	if err := c.ShouldBindQuery(&req); err != nil {

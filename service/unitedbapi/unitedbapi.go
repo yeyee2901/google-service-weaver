@@ -7,6 +7,7 @@ import (
 	"github.com/ServiceWeaver/weaver"
 	unitepb "github.com/yeyee2901/unitedb-api-proto/gen/go/unitedb/v1"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 // UniteDBService adalah service untuk berkomunikasi dengan API unitedb
@@ -31,7 +32,12 @@ type config struct {
 // Init adalah function pertama yang dijalankan setelah component di
 // instantiate
 func (s *grpcUniteDBService) Init(_ context.Context) error {
-	cc, err := grpc.Dial(s.Config().GrpcAddress, grpc.WithInsecure())
+	cc, err := grpc.Dial(
+		s.Config().GrpcAddress,
+		grpc.WithTransportCredentials(
+			insecure.NewCredentials(),
+		),
+	)
 	if err != nil {
 		return err
 	}
@@ -56,7 +62,16 @@ func (s *grpcUniteDBService) GetBattleItem(c context.Context, name string, tier 
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	// execute get battle item
 	resp, err := client.GetBattleItem(ctx, req)
+
+	// NOTE: error adalah non-serializable, jadi walaupun di wrap seperti
+	// ini tidak akan pengaruh
+	//  return nil, UniteDBError{reason: err}
+
+	// jadi mending di bagi saja domain nya berdasarkan caller & called
+	// function, cukup membedakan asal error dari caller component atau
+	// called component
 	if err != nil {
 		return nil, err
 	}

@@ -6,7 +6,6 @@ require (
 	github.com/ServiceWeaver/weaver v0.1.1
 	github.com/gin-gonic/gin v1.9.0
 	github.com/yeyee2901/unitedb-api-proto v0.1.0-alpha
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.39.0
 	go.opentelemetry.io/otel v1.13.0
 	go.opentelemetry.io/otel/trace v1.13.0
 	google.golang.org/grpc v1.51.0
@@ -18,7 +17,6 @@ require (
 	github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20220418222510-f25a4f6275ed // indirect
 	github.com/bytedance/sonic v1.8.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
-	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
@@ -47,7 +45,6 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.7.0 // indirect
-	go.opentelemetry.io/otel/metric v0.36.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.11.1 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
